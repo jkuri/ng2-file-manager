@@ -1,0 +1,151 @@
+.menu-left
+  position: fixed
+  width: 180px
+
+.explorer-menu
+  margin-top: 30px
+  margin-bottom: 20px
+  h3
+    padding-bottom: 6px
+    border-bottom: 1px solid $border-color
+    margin-bottom: 15px
+    font-weight: bold
+  .buttons
+    .button-link
+      display: block
+      width: 100%
+      text-align: left
+      outline: none
+      border: 1px solid transparent
+      font-size: 14px
+      margin: 5px 0
+      padding: 8px 5px
+      background: transparent
+      border-radius: 3px
+      &:hover, &.is-active
+        background: #fafbfb
+        color: $primary
+        border: 1px solid $border-color
+      .link-title
+        margin-left: 15px
+        line-height: 20px
+      i
+        width: 20px
+        height: 20px
+        font-size: 23px
+        display: block
+        float: left
+        margin-top: -3px
+        padding-left: 3px
+        &.ion-document
+          color: #333
+        &.folder-icon
+          margin: 0
+  &.actions
+    h3
+      padding-bottom: 6px
+    .buttons
+      .button-link
+        padding: 7px
+        font-size: 12px
+        margin: 5px 0
+        background: rgba($primary, 0.02)
+        border: 1px solid $border-color
+        color: $primary
+        .link-title
+          line-height: 22px
+        &:hover:not(.delete)
+          background: $primary
+          color: $white
+        &.delete
+          background: rgba($red, 0.05)
+          border: 1px solid rgba($red, 0.2)
+          color: $red
+          &:hover
+            background: $red
+            color: $white
+
+.explorer-header
+  position: fixed
+  z-index: 99
+  background: $white
+  padding-top: 30px
+  width: 100%
+  border-bottom: 1px solid $border-color
+  .top
+    padding-bottom: 5px
+    .path
+      .path-part
+        cursor: pointer
+        transition: color 300ms ease
+        font-size: 14px
+        font-weight: 300
+        &:hover
+          color: $primary
+
+.explorer
+  margin-top: 70px
+  .explorer-item
+    height: 50px
+    margin: 5px 0
+    padding: 5px 0
+    background: $light
+    border: 1px solid $border-color
+    border-radius: 4px
+    span
+      display: block
+      float: left
+      color: #333
+      &.icon
+        margin-right: 15px
+        i
+          display: block
+          width: 20px
+          height: 20px
+          font-size: 20px
+      &.devicons
+        width: 20px
+        height: 20px
+        font-size: 20px
+      &.name
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+        font-size: 12px
+        line-height: 20px
+      &.type, &.size
+        width: 100%
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+        font-size: 10px
+        line-height: 20px
+      &.size
+        text-align: center
+    &:hover
+      background: $lighter
+      cursor: pointer
+      .name
+        text-decoration: underline
+    &.folder-back
+      span
+        font-size: 26px
+        margin-top: -12px
+        margin-left: 8px
+      &:hover
+        background: $light
+
+  .file-item
+    background: $light
+    border: 1px solid $border-color
+    margin: 5px 0
+    padding: 5px 0
+    border-radius: 4px
+    .file-item-content
+      padding: 12px 10px 0 10px
+      font-size: 13px
+
+.explorer-message
+  width: 100%
+  margin-top: 70px
+  padding: 17px 0

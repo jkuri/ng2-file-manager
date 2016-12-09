@@ -1,0 +1,21 @@
+.button
+  outline: none
+  border: none
+  padding: 10px 20px
+  background: $primary
+  font-size: 14px
+  color: $white
+  border: 1px solid transparent
+  transition: all 400ms ease
+  &:hover
+    background: $white
+    color: $primary
+    border: 1px solid $primary
+  &.inversed
+    background: $white
+    color: $primary
+    border: 1px solid $primary
+    &:hover
+      background: $primary
+      color: $white
+      border: 1px solid transparent

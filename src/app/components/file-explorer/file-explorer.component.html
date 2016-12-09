@@ -1,0 +1,132 @@
+<div class="columns is-multiline">
+  <div class="column is-2">
+    <div class="menu-left">
+      <div class="explorer-menu" *ngIf="fileType === 'dir'">
+        <h3>Type</h3>
+        <div class="buttons">
+          <button class="button-link" (click)="selectType('all')" [class.is-active]="type === 'all'">
+            <span class="icon">
+              <i class="ion-ios-paper-outline"></i>
+            </span>
+            <span class="link-title">All</span>
+          </button>
+          <button class="button-link" (click)="selectType('files')" [class.is-active]="type === 'files'">
+            <span class="icon">
+              <i class="ion-document-text"></i>
+            </span>
+            <span class="link-title">Files</span>
+          </button>
+          <button class="button-link" (click)="selectType('photos')" [class.is-active]="type === 'photos'">
+            <span class="icon">
+              <i class="ion-ios-photos-outline"></i>
+            </span>
+            <span class="link-title">Photos</span>
+          </button>
+          <button class="button-link" (click)="selectType('folders')" [class.is-active]="type === 'folders'">
+            <span class="icon">
+              <i class="folder-icon"></i>
+            </span>
+            <span class="link-title">Folders</span>
+          </button>
+        </div>
+      </div>
+      <div class="explorer-menu actions">
+        <h3>Directory</h3>
+        <div class="buttons">
+          <button class="button-link" (click)="openInfo()">
+            <span class="icon">
+              <i class="ion-ios-information-outline"></i>
+            </span>
+            <span class="link-title">Info</span>
+          </button>
+          <button class="button-link" (click)="editModal('add')" *ngIf="fileType === 'dir'">
+            <span class="icon">
+              <i class="ion-ios-plus-outline"></i>
+            </span>
+            <span class="link-title">New folder</span>
+          </button>
+          <button class="button-link" (click)="editModal('rename')" *ngIf="path.length !== 1">
+            <span class="icon">
+              <i class="ion-ios-color-wand-outline"></i>
+            </span>
+            <span class="link-title">Rename</span>
+          </button>
+          <button class="button-link" (click)="copyToClipboard()" *ngIf="path.length !== 1">
+            <span class="icon">
+              <i class="ion-ios-copy-outline"></i>
+            </span>
+            <span class="link-title">Copy</span>
+          </button>
+          <button class="button-link delete" (click)="deleteModal()" *ngIf="path.length !== 1">
+            <span class="icon">
+              <i class="ion-ios-trash-outline"></i>
+            </span>
+            <span class="link-title">Delete</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="column is-10">
+    <div class="explorer-header">
+      <div class="columns top">
+        <div class="column is-12 path">
+          <span class="path-part" *ngFor="let p of path; let i = index; let last = last" (click)="goToPath(i + 1)">
+            <span *ngIf="!last || path.length === 1">{{ p }} /</span>
+            <span *ngIf="last">{{ p }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="explorer" *ngIf="!folderLoading && fileType === 'dir'">
+      <div class="columns explorer-item folder-back" *ngIf="path.length > 1" (click)="goToPath(path.length - 1)">
+        <div class="column is-12">
+          <span>..</span>
+        </div>
+      </div>
+      <div class="columns explorer-item" *ngFor="let file of files; let i = index" (click)="onItemClick(i)">
+        <div class="column is-8">
+          <span class="icon" *ngIf="file.isDir">
+            <i class="folder-icon"></i>
+          </span>
+          <dev-icon [mime]="file.mime" [name]="file.name" *ngIf="file.isFile"></dev-icon>
+          <span class="name">{{ file.name }}</span>
+        </div>
+        <div class="column is-2 has-text-centered">
+          <span class="type" *ngIf="!file.isDir">{{ file.mime }}</span>
+          <span class="type" *ngIf="file.isDir">Folder</span>
+        </div>
+        <div class="column is-2 has-text-centered">
+          <span class="size" *ngIf="file.isFile">
+            {{ file.stats.size | size }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="explorer" *ngIf="!folderLoading && fileType === 'file'">
+      <div class="columns explorer-item folder-back" *ngIf="path.length > 1" (click)="goToPath(path.length - 1)">
+        <div class="column is-12">
+          <span>..</span>
+        </div>
+      </div>
+      <div class="columns file-item">
+        <div class="column is-12 file-item-content">
+          <pre><code class="language-js">{{ fileContent }}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!folderLoading && fileType === 'dir' && !files.length">
+      <span class="message explorer-message danger">No folders or files.</span>
+    </div>
+    <div *ngIf="folderLoading">
+      <span class="message explorer-message">Fetching data...</span>
+    </div>
+  </div>
+</div>
+
+<info-modal [events]="infoEvent" [fileType]="fileType" [filePath]="path"></info-modal>
+<delete-modal [events]="deleteEvent" (onDelete)="onDeleteHandler($event)"></delete-modal>
+<edit-modal [events]="editEvent" (onEdit)="onEditHandler($event)"></edit-modal>

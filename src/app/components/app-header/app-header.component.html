@@ -1,0 +1,23 @@
+<header class="header">
+  <div class="left">
+    <a href="/">
+      <img src="images/logo.png" alt="Logo" class="logo">
+    </a> 
+  </div>
+  <div class="center">
+    <div class="message" 
+         [class.hidden]="!visible" 
+         [class.success]="class === 'success'" 
+         [class.danger]="class === 'danger'">
+      {{ message }}
+    </div>
+  </div>
+  <div class="right">
+    <button class="upload-button">
+      <span class="icon">
+        <i class="ion-ios-cloud-upload"></i>
+      </span>
+      <span>Upload</span>
+    </button>
+  </div>
+</header>

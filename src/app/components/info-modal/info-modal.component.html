@@ -1,0 +1,32 @@
+<div class="modal" [class.is-active]="opened">
+  <div class="modal-background"></div>
+  <div class="modal-container">
+    <div class="modal-content">
+      <div class="left">
+        <div class="icon">
+          <i class="super-icon ion-ios-folder-outline"></i>
+        </div>
+      </div>
+      <div class="right">
+        <button type="button" class="button inversed close" (click)="close()">
+          <span class="icon">
+            <i class="ion-close"></i>
+          </span>
+        </button>
+        <div class="info-row">
+          <span class="title">Name</span>
+          <span class="info">{{ infoName }}</span>
+        </div>
+        <div class="info-row">
+          <span class="title">Path</span>
+          <span class="info">{{ infoPath }}</span>
+        </div>
+        <div class="info-row">
+          <span class="title">Size</span>
+          <span *ngIf="infoSize" class="info">{{ infoSize | size }}</span>
+          <span *ngIf="!infoSize" class="info">Calculating...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
